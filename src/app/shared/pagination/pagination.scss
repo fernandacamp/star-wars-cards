@@ -14,25 +14,25 @@
 
 .sw-pagination-total-items {
   font-family: var(--font-secondary);
-  font-size: 0.8rem;
+  font-size: var(--font-size);
   font-weight: var(--font-weight-regular);
   color: var(--sw-white);
-  margin-right: 0.5rem;
+  margin-right: 8px;
   white-space: nowrap;
 }
 
 .sw-pagination-button {
-  min-width: 2.4rem;
-  height: 2.4rem;
-  padding: 0 1rem;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   color: var(--sw-yellow-primary);
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: var(--font-size);
   font-weight: var(--font-weight-medium);
-  letter-spacing: 0.12em;
+  letter-spacing: 2px;
   cursor: pointer;
 }

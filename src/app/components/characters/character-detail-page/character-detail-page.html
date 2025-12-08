@@ -1,1 +1,129 @@
-<p>character-detail-page works!</p>
+<div class="sw-character-detail-container">
+    <header class="sw-character-detail-header">
+        <div class="sw-character-detail-breadcrumb">
+            <button class="sw-character-detail-back" type="button" (click)="onBack()">
+                ← Voltar
+            </button>
+            <span class="sw-character-detail-breadcrumb-divider">/</span>
+            <span class="sw-character-detail-breadcrumb-current">
+                Detalhes do personagem
+            </span>
+        </div>
+
+        <div class="sw-character-detail-header-main">
+            <div class="sw-character-detail-title-group">
+                <h1 class="sw-character-detail-title">{{ character.name }}</h1>
+                <p class="sw-character-detail-subtitle">
+                    {{ character.description }}
+                </p>
+            </div>
+
+            <div class="sw-character-detail-header-meta">
+                <div class="sw-character-detail-tag">{{ character.type }}</div>
+                <div class="sw-character-detail-hp">
+                    <span>HP</span>
+                    <strong>{{ character.hp }}</strong>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="sw-character-detail-content">
+        <div class="sw-character-detail-left">
+            <div class="sw-character-detail-card">
+                <div class="sw-character-detail-avatar">
+                    <div class="sw-character-detail-avatar-inner">
+                        <span class="sw-character-detail-avatar-initial">
+                            {{ character.name[0] }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="sw-character-detail-stats">
+                    <div class="sw-character-detail-stat">
+                        <span class="sw-character-detail-stat-label">ATK</span>
+                        <span class="sw-character-detail-stat-value">{{ character.attack }}</span>
+                    </div>
+                    <div class="sw-character-detail-stat">
+                        <span class="sw-character-detail-stat-label">DEF</span>
+                        <span class="sw-character-detail-stat-value">{{ character.defense }}</span>
+                    </div>
+                    <div class="sw-character-detail-stat">
+                        <span class="sw-character-detail-stat-label">SPD</span>
+                        <span class="sw-character-detail-stat-value">{{ character.speed }}</span>
+                    </div>
+                </div>
+
+                <div class="sw-character-detail-quick-info">
+                    <div class="sw-character-detail-quick-item">
+                        <span class="sw-character-detail-quick-label">Altura</span>
+                        <span class="sw-character-detail-quick-value">
+                            {{ character.height }} cm
+                        </span>
+                    </div>
+                    <div class="sw-character-detail-quick-item">
+                        <span class="sw-character-detail-quick-label">Massa</span>
+                        <span class="sw-character-detail-quick-value">
+                            {{ character.mass }} kg
+                        </span>
+                    </div>
+                    <div class="sw-character-detail-quick-item">
+                        <span class="sw-character-detail-quick-label">Gênero</span>
+                        <span class="sw-character-detail-quick-value">
+                            {{ character.gender }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="sw-character-detail-actions">
+                <app-button type="primary" label="★ Favoritar" (clicked)="onToggleFavorite()" />
+                <app-button type="primary" label="+ Adicionar ao deck" (clicked)="onAddToDeck()" />
+                <app-button type="secondary" label="Duelo simulado" (clicked)="onSimulateDuel()" />
+            </div>
+        </div>
+
+        <div class="sw-character-detail-right">
+            <section class="sw-character-detail-section">
+                <h2 class="sw-character-detail-section-title">Ficha do personagem</h2>
+                <div class="sw-character-detail-info-grid">
+                    <div class="sw-character-detail-info-item">
+                        <span class="sw-character-detail-info-label">Nome</span>
+                        <span class="sw-character-detail-info-value">{{ character.name }}</span>
+                    </div>
+                    <div class="sw-character-detail-info-item">
+                        <span class="sw-character-detail-info-label">Ano de nascimento</span>
+                        <span class="sw-character-detail-info-value">
+                            {{ character.birthYear }}
+                        </span>
+                    </div>
+                    <div class="sw-character-detail-info-item">
+                        <span class="sw-character-detail-info-label">Planeta natal</span>
+                        <span class="sw-character-detail-info-value">
+                            {{ character.homeworld }}
+                        </span>
+                    </div>
+                    <div class="sw-character-detail-info-item">
+                        <span class="sw-character-detail-info-label">Tipo</span>
+                        <span class="sw-character-detail-info-value">
+                            {{ character.type }}
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sw-character-detail-section">
+                <h2 class="sw-character-detail-section-title">
+                    Participação em filmes
+                </h2>
+                <ul class="sw-character-detail-film-list">
+                    @for (film of character.films; track film) {
+                    <li class="sw-character-detail-film-item">
+                        <span class="sw-character-detail-film-bullet">✦</span>
+                        <span class="sw-character-detail-film-name">{{ film }}</span>
+                    </li>
+                    }
+                </ul>
+            </section>
+        </div>
+    </section>
+</div>

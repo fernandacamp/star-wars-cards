@@ -1,21 +1,21 @@
 .sw-character-list-container {
   min-height: 100vh;
-  padding: 2rem 1.5rem;
+  padding: 30px 24px;
   background: var(--sw-gradient-space);
   color: var(--sw-light);
   font-family: var(--font-secondary);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 24px;
 }
 
 .sw-character-list-header {
   display: flex;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 24px;
   align-items: flex-start;
   border-bottom: 1px solid var(--sw-black-transparent-25);
-  padding-bottom: 1rem;
+  padding-bottom: 16px;
 }
 
 .sw-character-title-group {
@@ -23,10 +23,10 @@
 }
 
 .sw-character-list-title {
-  margin: 0 0 0.5rem;
+  margin: 0 0 8px;
   font-family: var(--font-primary);
   font-size: var(--font-size-title);
-  letter-spacing: 0.08em;
+  letter-spacing: 2px;
   text-transform: uppercase;
   background: var(--sw-gradient-primary);
   -webkit-background-clip: text;
@@ -42,25 +42,25 @@
 
 .sw-character-list-meta {
   display: flex;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .sw-character-list-meta-item {
   min-width: 110px;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
+  padding: 8px 12px;
+  border-radius: 8px;
   background: var(--sw-black-transparent-25);
   border: 1px solid var(--sw-black-transparent-50);
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 5px;
   align-items: flex-start;
 }
 
 .sw-character-list-meta-label {
-  font-size: 0.7rem;
+  font-size: var(--font-size-base);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 2px;
   color: var(--sw-light-transparent-50);
 }
 
@@ -73,7 +73,7 @@
 .sw-character-list-toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 16px;
   align-items: center;
   justify-content: space-between;
 }
@@ -88,15 +88,15 @@
 .sw-character-list-search-icon {
   position: absolute;
   top: 50%;
-  left: 0.75rem;
+  left: 12px;
   transform: translateY(-50%);
-  font-size: 0.9rem;
+  font-size: var(--font-size-base);
   opacity: 0.7;
 }
 
 .sw-character-list-search-input {
   width: 100%;
-  padding: 0.55rem 0.9rem 0.55rem 2.1rem;
+  padding: 10px 15 10px 2.16px;
   border-radius: 999px;
   border: 1px solid var(--sw-black-transparent-50);
   background: var(--sw-dark-2);
@@ -123,25 +123,25 @@
 .sw-character-list-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 5px;
 }
 
 .sw-character-list-filters app-button {
-  --button-font-size: 0.7rem;
+  font-size: var(--font-size-base);
 }
 
 .sw-character-list-grid {
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 .sw-character-list-grid > div {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
+  gap: 16px;
 }
 
 .sw-character-list-pagination {
-  margin-top: 1.5rem;
+  margin-top: 24px;
   display: flex;
   justify-content: center;
 }
