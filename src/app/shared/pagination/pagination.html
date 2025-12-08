@@ -1,1 +1,21 @@
-<p>pagination works!</p>
+<div class="sw-pagination">
+    <span class="sw-pagination-total-items"> Total de itens: {{ totalItems }} </span>
+    <app-button class="sw-pagination-button" 
+        type="primary" 
+        (click)="previousPage()" 
+        label="Anterior"
+        />
+    @for (page of pages; track page) {
+        <app-button class="sw-pagination-button" 
+            type="primary" 
+            (click)="goToPage(page)"
+            label="{{page}}" 
+            [class.active]="page === currentPage" 
+        />
+    }
+    <app-button class="sw-pagination-button" 
+        type="primary" 
+        (click)="nextPage()" 
+        label="Próximo"
+        />
+</div>

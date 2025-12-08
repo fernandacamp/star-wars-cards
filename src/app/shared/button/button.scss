@@ -9,10 +9,10 @@
   color: #fff;
 
   &.primary {
-    background: --sw-yellow-primary;
+    background: var(--sw-yellow-primary);
 
     &:hover:not(:disabled) {
-      background:   --sw-yellow-light;
+      background: var(--sw-yellow-light);
     }
   }
 

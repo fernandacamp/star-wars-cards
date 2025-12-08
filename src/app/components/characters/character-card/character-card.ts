@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-character-card',
+  standalone: true,
   imports: [Button, MatIconModule],
   templateUrl: './character-card.html',
   styleUrl: './character-card.scss',
