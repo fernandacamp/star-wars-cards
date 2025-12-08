@@ -1,0 +1,49 @@
+<article class="sw-deck-card">
+    <header class="sw-deck-card-header">
+        <div class="sw-deck-card-title-group">
+            <h2 class="sw-deck-card-title">
+                {{ deck.name }}
+            </h2>
+            <div class="sw-deck-card-favorite">
+                <img src="\assets\icons\star.svg" alt="favorito" class="sw-deck-card-favorite-icon">
+            </div>
+        </div>
+
+        @if(deck.description) {
+        <p class="sw-deck-card-description">
+            {{ deck.description }}
+        </p>
+        }
+
+        @if(deck.tags?.length) {
+        <ul class="sw-deck-card-tags">
+            <li class="sw-deck-card-tag">
+                {{deck.tags}}
+            </li>
+        </ul>
+        }
+    </header>
+
+
+    <section class="sw-deck-card-stats">
+        <div class="sw-deck-card-stat">
+            <span class="sw-deck-card-stat-label">Cartas</span>
+            <span class="sw-deck-card-stat-value">{{ deck.cardsCount }}</span>
+        </div>
+
+        @if(deck.avgPower !== undefined) {
+        <div class="sw-deck-card-stat">
+            <span class="sw-deck-card-stat-label">Poder médio</span>
+            <span class="sw-deck-card-stat-value">{{ deck.avgPower }}</span>
+        </div>
+        }
+    </section>
+
+    <footer class="sw-deck-card-footer">
+        <app-button type="primary" label="Ver deck" (click)="viewDeck()" />
+
+        <app-button type="secondary" label="Editar" (click)="editDeck()" />
+
+        <app-button type="danger" label="Excluir" (click)="deleteDeck()" />
+    </footer>
+</article>

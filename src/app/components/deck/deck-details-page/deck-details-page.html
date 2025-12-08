@@ -1,0 +1,87 @@
+<section class="sw-deck-detail">
+  <header class="sw-deck-detail-header">
+    <button
+      type="button"
+      class="sw-deck-detail-back"
+      (click)="navigateBack()"
+    >
+      ← Voltar
+    </button>
+
+    <div class="sw-deck-detail-title-row">
+      <h1 class="sw-deck-detail-title">
+        {{ deck.name }}
+      </h1>
+
+      <button
+        type="button"
+        class="sw-deck-detail-fav"
+        (click)="favoriteDeck()"
+        [attr.aria-pressed]="deck.favorite"
+        [attr.aria-label]="deck.favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'"
+      >
+        <span class="sw-deck-detail-fav-icon">
+          {{ deck.favorite ? '★' : '☆' }}
+        </span>
+      </button>
+    </div>
+
+    @if (deck.description) {
+      <p class="sw-deck-detail-description">
+        {{ deck.description }}
+      </p>
+    }
+
+    @if (deck.tags?.length) {
+      <ul class="sw-deck-detail-tags">@for (tag of deck.tags; track tag) {
+        <li class="sw-deck-detail-tag">
+          {{ tag }}
+        </li>
+      }</ul>
+    }
+
+    <div class="sw-deck-detail-stats">
+      <div class="sw-deck-detail-stat">
+        <span class="sw-deck-detail-stat-label">Cartas</span>
+        <span class="sw-deck-detail-stat-value">
+          {{ deck.cardsCount }}
+        </span>
+      </div>
+
+      @if (deck.avgPower !== undefined) {
+        <div class="sw-deck-detail-stat">
+          <span class="sw-deck-detail-stat-label">Poder médio</span>
+          <span class="sw-deck-detail-stat-value">
+            {{ deck.avgPower }}
+          </span>
+        </div>
+      }
+    </div>
+
+    <div class="sw-deck-detail-actions">
+      <app-button
+        type="secondary"
+        [label]="'Editar deck'"
+        (click)="editDeck()"
+      ></app-button>
+
+      <app-button
+        type="danger"
+        [label]="'Excluir deck'"
+        (click)="deleteDeck()"
+      ></app-button>
+    </div>
+  </header>
+
+  <section class="sw-deck-detail-characters">
+    <h2 class="sw-deck-detail-subtitle">
+      Cartas do deck
+    </h2>
+
+    <div class="sw-deck-detail-grid">
+      @for (character of deckCharacters; track character.id) {
+        <app-character-card></app-character-card>
+      }
+    </div>
+  </section>
+</section>

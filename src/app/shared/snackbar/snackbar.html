@@ -1,0 +1,12 @@
+<div class="sw-snackbar {{ type }}">
+  <span class="sw-snackbar-message">
+    {{ message }}
+  </span>
+
+  <app-button
+    class="sw-snackbar-close"
+    type="primary"
+    (click)="closeSnackbar()"
+    label="X"
+  />
+</div>

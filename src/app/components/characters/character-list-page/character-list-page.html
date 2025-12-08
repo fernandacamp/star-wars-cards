@@ -1,0 +1,57 @@
+<div class="sw-character-list-container">
+    <header class="sw-character-list-header">
+        <div class="sw-character-title-group">
+            <h1 class="sw-character-list-title">Personagens de Star Wars</h1>
+            <p class="sw-character-list-subtitle">
+                Explore a galáxia muito, muito distante e descubra os personagens icônicos que
+                moldaram o universo de Star Wars.
+            </p>
+        </div>
+        <div class="sw-character-list-meta">
+            <div class="sw-character-list-meta-item">
+                <span class="sw-character-list-meta-label"> 
+                    Cartas exibidas 
+                </span>
+                <span class="sw-character-list-meta-value">
+                    {{characters.length}}
+                </span>
+            </div>
+        </div>
+    </header>
+    <section class="sw-character-list-toolbar">
+        <div class="sw-character-list-search">
+            <span class="sw-character-list-search-icon">🔍</span>
+            <input type="text" 
+                class="sw-character-list-search-input" 
+                placeholder="Buscar personagem por nome..." 
+            />
+        </div>
+
+        <div class="sw-character-list-filters">
+            <app-button type="primary" label="Todos" />
+            <app-button type="primary" label="Jedi" />
+            <app-button type="primary" label="Sith" />
+            <app-button type="primary" label="Droid" />
+            <app-button type="primary" label="Outros" />
+        </div>
+    </section>
+
+    <section class="sw-character-list-grid">
+        <div>
+            @for (character of characters; track character.id) {
+                <app-character-card></app-character-card>
+            }
+        </div>
+    </section>
+
+    <footer class="sw-character-list-pagination">
+        <app-pagination [totalItems]="totalItems" 
+            [pageSize]="pageSize" 
+            [currentPage]="currentPage"
+            [showFirstLast]="true" 
+            [maxVisiblePages]="5" 
+            (pageChange)="onPageChange($event)" 
+        />
+    </footer>
+
+</div>

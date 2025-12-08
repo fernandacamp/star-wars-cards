@@ -1,0 +1,31 @@
+<div class="sw-layout">
+  <header class="sw-layout-topbar">
+    <div class="sw-layout-logo" (click)="goHome()">
+      <span class="sw-layout-logo-title">{{ appName }}</span>
+      <span class="sw-layout-logo-subtitle">Contrutor de Decks Galáticos</span>
+    </div>
+
+    <nav class="sw-layout-nav">
+      <div class="sw-layout-favorites-indicator">
+        <img
+          src="assets/icons/star.svg"
+          alt=""
+          class="sw-layout-favorites-icon"
+        />
+        <span class="sw-layout-favorites-label">Favoritos</span>
+        <span class="sw-layout-favorites-count">{{ favoriteCount }}</span>
+      </div>
+
+      <app-button
+        type="primary"
+        class="sw-layout-decks-button"
+        (click)="goToDecks()"
+        [label]="'Meus decks'"
+      ></app-button>
+    </nav>
+  </header>
+
+  <main class="sw-layout-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>
