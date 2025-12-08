@@ -3,6 +3,7 @@ import { Button } from "../../../shared/button/button";
 
 @Component({
   selector: 'app-deck-card',
+  standalone: true,
   imports: [Button],
   templateUrl: './deck-card.html',
   styleUrl: './deck-card.scss',

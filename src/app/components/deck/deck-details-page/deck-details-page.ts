@@ -4,6 +4,7 @@ import { Button } from "../../../shared/button/button";
 
 @Component({
   selector: 'app-deck-details-page',
+  standalone: true,
   imports: [CharacterCard, Button],
   templateUrl: './deck-details-page.html',
   styleUrl: './deck-details-page.scss',

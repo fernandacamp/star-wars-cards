@@ -4,14 +4,9 @@
             <h2 class="sw-deck-card-title">
                 {{ deck.name }}
             </h2>
-
-            <app-button type="primary" class="sw-deck-card-fav" (click)="toggleFavorite()"
-                [attr.aria-pressed]="deck.favorite"
-                [label]="deck.favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'">
-                <span class="sw-deck-card-fav-icon">
-                    <!-- adicionar icone de favoritar-->
-                </span>
-            </app-button>
+            <div class="sw-deck-card-favorite">
+                <img src="\assets\icons\star.svg" alt="favorito" class="sw-deck-card-favorite-icon">
+            </div>
         </div>
 
         @if(deck.description) {

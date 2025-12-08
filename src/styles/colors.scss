@@ -18,6 +18,17 @@
   --sw-card-yellow: #ffd54f;
   --sw-card-grey: #b0bec5;
 
+  /* Cores dos snackbars*/
+  --sw-snackbar-success: #4caf50;
+  --sw-snackbar-error: #f44336;
+  --sw-snackbar-info: #679fce;
+  --sw-snackbar-warning: #ff9800;
+  --sw-snackbar-success-transparent: rgba(76, 175, 80, 0.15)0;
+  --sw-snackbar-error-transparent: rgba(244, 67, 54, 0.15);
+  --sw-snackbar-info-transparent: rgb(105, 161, 206, 0.15);
+  --sw-snackbar-warning-transparent: rgba(255, 152, 0, 0.15);
+
+
   /* Gradientes */
   --sw-gradient-primary: linear-gradient(90deg, #7E7406, #CBBB08);
   --sw-gradient-space: linear-gradient(180deg, #000000, #151515);
