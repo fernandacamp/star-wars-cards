@@ -1,0 +1,53 @@
+:root {
+  /* Primárias */
+  --sw-yellow-primary: #CBBB08;
+  --sw-yellow-dark: #7E7406;
+  --sw-yellow-light: #36330E;
+
+  /* Neutras */
+  --sw-black: #000000;
+  --sw-dark-1: #0A0A0A;
+  --sw-dark-2: #151515;
+  --sw-grey: #2C2C2C;
+  --sw-white: #FFFFFF;
+  --sw-light: #F5F5F5;
+
+  /* Cores dos cards */
+  --sw-card-blue: #4fc3f7;
+  --sw-card-red: #ff1744;
+  --sw-card-yellow: #ffd54f;
+  --sw-card-grey: #b0bec5;
+
+  /* Gradientes */
+  --sw-gradient-primary: linear-gradient(90deg, #7E7406, #CBBB08);
+  --sw-gradient-space: linear-gradient(180deg, #000000, #151515);
+
+  /* Gradientes dos cards */
+  --sw-gradient-jedi: radial-gradient(circle at top, #243b6b, #050814);
+  --sw-gradient-sith: radial-gradient(circle at top, #5b1220, #050008);
+  --sw-gradient-droid: radial-gradient(circle at top, #6b6024, #050509);
+  --sw-gradient-civilian: radial-gradient(circle at top, #455a64, #050505);
+
+  /* Cores com transparência */
+  --sw-light-transparent-50: rgba(245, 245, 245, 0.5);
+  --sw-light-transparent-25: rgba(245, 245, 245, 0.25);
+
+  --sw-dark-transparent-50: rgba(10, 10, 10, 0.5);
+  --sw-dark-transparent-25: rgba(10, 10, 10, 0.25);
+
+  --sw-black-transparent-50: rgba(0, 0, 0, 0.5);
+  --sw-black-transparent-25: rgba(0, 0, 0, 0.25);
+  --sw-black-transparent-65: rgba(0, 0, 0, 0.65);
+
+  --sw-white-transparent-50: rgba(255, 255, 255, 0.5);
+  --sw-white-transparent-25: rgba(255, 255, 255, 0.25);
+
+  --sw-yellow-primary-transparent-50: rgba(203, 187, 8, 0.5);
+  --sw-yellow-primary-transparent-25: rgba(203, 187, 8, 0.25);
+
+  --sw-yellow-dark-transparent-50: rgba(126, 116, 6, 0.5);
+  --sw-yellow-dark-transparent-25: rgba(126, 116, 6, 0.25);
+
+  --sw-yellow-light-transparent-50: rgba(54, 51, 14, 0.5);
+  --sw-yellow-light-transparent-25: rgba(54, 51, 14, 0.25);
+}
