@@ -1,0 +1,122 @@
+.sw-deck-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    border-radius: 16px;
+    background: var(--sw-gradient-space);
+    border: 1px solid var(--sw-yellow-primary-transparent-25);
+    box-shadow: 0 12px 30px var(--sw-black-transparent-65);
+    color: var(--sw-light);
+}
+
+.sw-deck-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sw-deck-card-title-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.sw-deck-card-title {
+    margin: 0;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-larger);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.sw-deck-card-fav {
+    border: none;
+    background: transparent;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 50px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        background 0.15s ease,
+        transform 0.1s ease;
+}
+
+.sw-deck-card-fav .sw-deck-card-fav-icon {
+    font-size: var(--font-size-larger);
+    color: var(--sw-yellow-primary);
+}
+
+.sw-deck-card-fav:hover {
+    background: var(--sw-yellow-primary-transparent-25);
+    transform: translateY(-1px);
+}
+
+.sw-deck-card-fav:active {
+    transform: translateY(0);
+}
+
+.sw-deck-card-description {
+    margin: 0;
+    font-family: var(--font-secondary);
+    font-size: var(--font-size-base);
+    color: var(--sw-light-transparent-50);
+}
+
+.sw-deck-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sw-deck-card-tag {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-small);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: var(--sw-black-transparent-50);
+    border: 1px solid var(--sw-yellow-primary-transparent-25);
+}
+
+.sw-deck-card-stats {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.sw-deck-card-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sw-deck-card-stat-label {
+    font-family: var(--font-secondary);
+    font-size: 12px;
+    color: var(--sw-light-transparent-50);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+}
+
+.sw-deck-card-stat-value {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: var(--sw-yellow-primary);
+}
+
+.sw-deck-card-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-end;
+}

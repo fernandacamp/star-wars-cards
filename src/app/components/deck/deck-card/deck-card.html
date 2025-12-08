@@ -1,1 +1,54 @@
-<p>deck-card works!</p>
+<article class="sw-deck-card">
+    <header class="sw-deck-card-header">
+        <div class="sw-deck-card-title-group">
+            <h2 class="sw-deck-card-title">
+                {{ deck.name }}
+            </h2>
+
+            <app-button type="primary" class="sw-deck-card-fav" (click)="toggleFavorite()"
+                [attr.aria-pressed]="deck.favorite"
+                [label]="deck.favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'">
+                <span class="sw-deck-card-fav-icon">
+                    <!-- adicionar icone de favoritar-->
+                </span>
+            </app-button>
+        </div>
+
+        @if(deck.description) {
+        <p class="sw-deck-card-description">
+            {{ deck.description }}
+        </p>
+        }
+
+        @if(deck.tags?.length) {
+        <ul class="sw-deck-card-tags">
+            <li class="sw-deck-card-tag">
+                {{deck.tags}}
+            </li>
+        </ul>
+        }
+    </header>
+
+
+    <section class="sw-deck-card-stats">
+        <div class="sw-deck-card-stat">
+            <span class="sw-deck-card-stat-label">Cartas</span>
+            <span class="sw-deck-card-stat-value">{{ deck.cardsCount }}</span>
+        </div>
+
+        @if(deck.avgPower !== undefined) {
+        <div class="sw-deck-card-stat">
+            <span class="sw-deck-card-stat-label">Poder médio</span>
+            <span class="sw-deck-card-stat-value">{{ deck.avgPower }}</span>
+        </div>
+        }
+    </section>
+
+    <footer class="sw-deck-card-footer">
+        <app-button type="primary" label="Ver deck" (click)="viewDeck()" />
+
+        <app-button type="secondary" label="Editar" (click)="editDeck()" />
+
+        <app-button type="danger" label="Excluir" (click)="deleteDeck()" />
+    </footer>
+</article>
