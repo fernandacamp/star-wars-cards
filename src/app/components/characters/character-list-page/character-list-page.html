@@ -9,8 +9,8 @@
         </div>
         <div class="sw-character-list-meta">
             <div class="sw-character-list-meta-item">
-                <span class="sw-character-list-meta-label"> 
-                    Cartas exibidas 
+                <span class="sw-character-list-meta-label">
+                    Cartas exibidas
                 </span>
                 <span class="sw-character-list-meta-value">
                     {{characters.length}}
@@ -20,38 +20,37 @@
     </header>
     <section class="sw-character-list-toolbar">
         <div class="sw-character-list-search">
-            <span class="sw-character-list-search-icon">🔍</span>
-            <input type="text" 
-                class="sw-character-list-search-input" 
-                placeholder="Buscar personagem por nome..." 
-            />
+            <app-search-bar 
+            placeholder="Buscar personagem..." 
+            (search)="onSearchChange($event)" />
         </div>
 
         <div class="sw-character-list-filters">
-            <app-button type="primary" label="Todos" />
-            <app-button type="primary" label="Jedi" />
-            <app-button type="primary" label="Sith" />
-            <app-button type="primary" label="Droid" />
-            <app-button type="primary" label="Outros" />
+            <app-button type="primary" label="Todos" [class.active]="peopleStore.filter() === 'all'" (click)="onFilterChange('all')"/>
+            <app-button type="primary" label="Jedi"  [class.active]="peopleStore.filter() === 'Jedi'" (click)="onFilterChange('Jedi')" />
+            <app-button type="primary" label="Sith" [class.active]="peopleStore.filter() === 'Sith'" (click)="onFilterChange('Sith')" />
+            <app-button type="primary" label="Droid" [class.active]="peopleStore.filter() === 'Droid'" (click)="onFilterChange('Droid')" />
+            <app-button type="primary" label="Civilian"[class.active]="peopleStore.filter() === 'Civilian'"  (click)="onFilterChange('Civilian')" />
+            <app-button type="primary" label="Outros"[class.active]="peopleStore.filter() === 'Unknown'"  (click)="onFilterChange('Unknown')"/>
         </div>
     </section>
 
     <section class="sw-character-list-grid">
         <div>
             @for (character of characters; track character.id) {
-                <app-character-card></app-character-card>
+            <app-character-card [character]="character" 
+                [isFavorite]="favoriteStore.isFavorite(character.id)"
+                (toggleFavorite)="onFavoriteToggle($event)" 
+                (addToDeck)="onAddToDeck($event)"
+                (details)="goToDetails($event)" />
             }
         </div>
     </section>
-
+    @if(totalItems > pageSize) {
     <footer class="sw-character-list-pagination">
-        <app-pagination [totalItems]="totalItems" 
-            [pageSize]="pageSize" 
-            [currentPage]="currentPage"
-            [showFirstLast]="true" 
-            [maxVisiblePages]="5" 
-            (pageChange)="onPageChange($event)" 
-        />
+        <app-pagination [totalItems]="totalItems" [pageSize]="pageSize" [currentPage]="currentPage"
+            [showFirstLast]="true" [maxVisiblePages]="5" (pageChange)="onPageChange($event)" />
     </footer>
+}
 
-</div>
+</div> 

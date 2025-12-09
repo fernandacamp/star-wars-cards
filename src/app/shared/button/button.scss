@@ -1,4 +1,4 @@
-.btn {
+.sw-btn {
   padding: 10px 18px;
   border: none;
   border-radius: 8px;
@@ -6,7 +6,8 @@
   font-weight: 600;
   cursor: pointer;
   transition: 0.25s ease;
-  color: #fff;
+  color: var(--sw-light);
+  display: block;
 
   &.primary {
     background: var(--sw-yellow-primary);
@@ -17,23 +18,23 @@
   }
 
   &.secondary {
-    background: #424242;
+    background: var(--sw-grey-light);
 
     &:hover:not(:disabled) {
-      background: #5a5a5a;
+      background: var(--sw-grey-medium);
     }
   }
 
   &.danger {
-    background: #e53935;
+    background: var(--sw-red-light);
 
     &:hover:not(:disabled) {
-      background: #c62828;
+      background: var(--sw-red-dark);
     }
   }
 
   &:disabled {
-    background: #9e9e9e;
+    background: var(--sw-grey);
     cursor: not-allowed;
     opacity: 0.6;
   }

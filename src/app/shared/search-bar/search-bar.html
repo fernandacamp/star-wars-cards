@@ -1,1 +1,9 @@
-<p>search-bar works!</p>
+<div class="sw-search-bar">
+    <img class="sw-search-bar-icon" src="icons/search.svg" alt="" />
+    <input type="text" class="sw-search-bar-input" aria-label="Buscar..." [placeholder]="placeholder" [value]="value()"
+        (input)="onInputChange($any($event.target).value)" (keyup.enter)="onEnter()" />
+
+    @if(value()) {
+    <img class="sw-search-bar-clear-icon" src="/icons/close.svg" alt="Limpar busca" (click)="onClear()" />
+    }
+</div>

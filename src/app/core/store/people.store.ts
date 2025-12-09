@@ -1,6 +1,6 @@
 import { computed, effect, inject, Injectable, signal } from "@angular/core";
 import { SwapiService } from "../services/swapi.service";
-import { CharacterCard } from "../models/character-card.model";
+import { CharacterCardModel } from "../models/character-card.model";
 import { ListResponse } from "../models/list-reponse.model";
 import { Person } from "../models/person.model";
 import { mapPersonToCard } from "../mapper/person.mapper";
@@ -10,12 +10,14 @@ import { mapPersonToCard } from "../mapper/person.mapper";
 })
 export class PeopleStore {
     private readonly swapi = inject(SwapiService);
-    private readonly _characters = signal<CharacterCard[]>([]);
+    private readonly _characters = signal<CharacterCardModel[]>([]);
     private readonly _loading = signal<boolean>(false);
     private readonly _error = signal<string | null>(null);
+    private readonly _filter = signal<string>('all');
 
     private readonly _page = signal<number>(1);
     private readonly _totalPages = signal<number>(1);
+    private readonly _totalItems = signal<number>(0);
     private readonly _search = signal<string>('');
 
     private readonly PAGE_SIZE = 10;
@@ -26,16 +28,34 @@ export class PeopleStore {
     readonly page = computed(() => this._page());
     readonly totalPages = computed(() => this._totalPages())
     readonly search = computed(() => this._search());
+    readonly filter = computed(() => this._filter());
 
     readonly filteredCharacteres = computed(() => {
         const searchTerm = this._search().toLowerCase();
-        const allCharacters = this._characters();
-        if (!searchTerm) return allCharacters;
+        const filter = this._filter();
 
-        return allCharacters.filter(character =>
-            character.name.toLowerCase().includes(searchTerm)
-        );
+        let characters = this._characters();
+
+        if (searchTerm) characters = characters.filter(c => c.name.toLowerCase().includes(searchTerm));
+        if (filter !== 'all') characters = characters.filter(c => c.type === filter);
+
+        return characters;
     });
+
+    readonly totalItems = computed(() => this.filteredCharacteres().length);
+
+    readonly charactersPage = computed(() => {
+        const page = this._page();
+        const pageSize = this.PAGE_SIZE;
+
+        const filtered = this.filteredCharacteres(); 
+
+        const start = (page - 1) * pageSize;
+        const end = start + pageSize;
+
+        return filtered.slice(start, end);
+    });
+
 
     constructor() {
         effect(() => {
@@ -71,21 +91,42 @@ export class PeopleStore {
         this._page.set(page);
     }
 
+    setFilter(filter: string) {
+        this._filter.set(filter);
+        this._page.set(1);
+    }
+
+
     private loadPage(page: number) {
         this._loading.set(true);
         this._error.set(null);
 
         this.swapi.getPeople(page).subscribe({
             next: (response: ListResponse<Person>) => {
-                const cards = response.results.map((person) =>
+                if (!response || !Array.isArray(response.results)) {
+                    console.error('Resposta inesperada do getPeople:', response);
+                    this._characters.set([]);
+                    this._totalPages.set(1);
+                    this._error.set('Erro ao carregar personagens.');
+                    this._loading.set(false);
+                    return;
+                }
+
+                const cards = response.results.map((person: Person) =>
                     mapPersonToCard(person),
                 );
                 this._characters.set(cards);
-                const totalItems = Math.max(
-                    1,
-                    Math.ceil(response.count / this.PAGE_SIZE),
-                );
-                this._totalPages.set(totalItems);
+
+                const totalItems =
+                    typeof response.count === 'number'
+                        ? response.count
+                        : response.results.length;
+
+                const totalPages = Math.max(1, Math.ceil(totalItems / this.PAGE_SIZE));
+
+                this._totalItems.set(totalItems);
+                this._totalPages.set(totalPages);
+
                 this._loading.set(false);
             },
             error: (error) => {

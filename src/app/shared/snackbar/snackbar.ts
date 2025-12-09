@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Button } from "../button/button";
+import { SnackbarType } from '../../core/enums/snackbarType.enum';
+import { SnackbarService } from '../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-snackbar',
@@ -8,20 +10,11 @@ import { Button } from "../button/button";
   templateUrl: './snackbar.html',
   styleUrl: './snackbar.scss',
 })
-export class Snackbar implements OnInit {
+export class Snackbar  {
 
-  @Input() message: string = '';
-  @Input() duration: number = 3000;
-  @Input() type: 'success' | 'error' | 'info' = 'info';
-  @Output() close = new EventEmitter<void>();
-
-  ngOnInit() { 
-    if (this.duration > 0) { 
-      setTimeout(() => this.close.emit(), this.duration);
-    }
+  snackbar = inject(SnackbarService);
+   closeSnackbar() {
+    this.snackbar.close();
   }
-  closeSnackbar() { 
-    this.close.emit();
-  } 
 
 }

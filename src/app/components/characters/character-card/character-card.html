@@ -1,62 +1,82 @@
-<article class="sw-card">
+<article class="sw-card" [ngClass]="'sw-card-' + character.type.toLowerCase()">
     <header class="sw-card-header">
         <div class="sw-card-title-row">
             <h2 class="sw-card-name">
+                {{character.name}}
             </h2>
-            <div class="sw-card-favorite">
-                <img src="\assets\icons\star.svg" alt="favorito" class="sw-card-favorite-icon">
-            </div>
+            <img src="/icons/star.svg" alt="favorito" class="sw-card-favorite-icon"
+                [class.sw-card-favorite-icon--active]="isFavorite" (click)="onToggleFavorite($event)" />
         </div>
         <div class="sw-card-subtitle-row">
             <span class="sw-card-type">
+                {{character.type}}
             </span>
-
-            <span class="sw-card-hp"></span>
+            <span class="sw-card-hp">
+                HP {{character.hp}}
+            </span>
         </div>
     </header>
 
     <section class="sw-card-avatar-section">
         <div class="sw-card-avatar">
+            <span class="sw-card-avatar-initial">
+                {{initial}}
+            </span>
         </div>
-        <span class="sw-card-avatar-initial">
-        </span>
     </section>
 
     <section class="sw-card-status">
         <div class="sw-card-status-name">
-            <span class="sw-card-status-label"></span>
-            <h3 class="sw-card-status-value"></h3>
+            <span class="sw-card-status-label">
+                ATTK
+            </span>
+            <h3 class="sw-card-status-value">
+                {{character.attack}}
+            </h3>
         </div>
 
         <div class="sw-card-status-name">
-            <span class="sw-card-status-label"></span>
-            <h3 class="sw-card-status-value"></h3>
+            <span class="sw-card-status-label">
+                DEF
+            </span>
+            <h3 class="sw-card-status-value">
+                {{character.defense}}
+            </h3>
         </div>
 
         <div class="sw-card-status-name">
-            <span class="sw-card-status-label"></span>
-            <h3 class="sw-card-status-value"></h3>
+            <span class="sw-card-status-label">
+                SPD
+            </span>
+            <h3 class="sw-card-status-value">
+                {{character.speed}}
+            </h3>
         </div>
     </section>
 
     <section class="sw-card-info">
-        <p class="sw-card__info-line">
-            <span>Altura</span>
-            <span class="sw-card__info-separator">•</span>
+        <p class="sw-card-info-line">
+            <span>Altura:</span>
+            <strong>{{ character.height }} cm</strong>
 
-            <span>Massa</span>
+            <span class="sw-card-info-separator"> • </span>
+
+            <span>Massa:</span>
+            <strong>{{ character.mass }} kg</strong>
         </p>
-        <p class="sw-card__info-line">
+        <p class="sw-card-info-line">
             <span>Gênero:</span>
+            <strong>{{ character.gender }}</strong>
 
-            <span class="sw-card__info-separator">•</span>
+            <span class="sw-card-info-separator">•</span>
 
             <span>Filmes:</span>
+            <strong>{{ character.filmsCount }}</strong>
         </p>
     </section>
 
     <footer class="sw-card-actions">
-        <app-button type="primary" label="Adicionar ao deck" ></app-button>
-        <app-button type="secondary" label="Detalhes"></app-button>
+        <app-button type="primary" label="Adicionar ao deck" (click)="onAddToDeck()" />
+        <app-button type="secondary" label="Detalhes" (click)="onDetails()" />
     </footer>
 </article>

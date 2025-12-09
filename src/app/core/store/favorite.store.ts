@@ -25,7 +25,7 @@ export class FavoriteStore {
         const currentIds = this._favoritesIds();
         const index = currentIds.indexOf(id);
 
-        if (index) {
+        if (index !== -1) {
             this._favoritesIds.set(currentIds.filter((x) => x !== id));
         } else {
             this._favoritesIds.set([...currentIds, id]);

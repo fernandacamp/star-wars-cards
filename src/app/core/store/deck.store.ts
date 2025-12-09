@@ -24,8 +24,8 @@ export class DeckStore {
     }
 
     /**
-     * 
-     * @param id 
+     * Retorna um deck pelo ID
+     * @param id Id do deck
      * @returns 
      */
     getDeckById(id: string): Deck | undefined {
@@ -33,10 +33,10 @@ export class DeckStore {
     }
 
     /**
-     * 
+     * Cria um novo deck com nome e descrição (opcional).
      * @param name 
      * @param description 
-     * @returns 
+     * @returns deck criado
      */
     createDeck(name: string, description?: string): Deck {
         const now = new Date().toISOString();
@@ -54,12 +54,11 @@ export class DeckStore {
     }
 
     /**
-     * 
+     * Atualiza o nome do deck
      * @param id 
      * @param name 
-     * @returns 
      */
-    updateDeck(id: string, name: string): void {
+    updateDeck(id: string, name: string)  {
         const trimmed = name.trim();
         if (!trimmed) return;
 
@@ -71,19 +70,19 @@ export class DeckStore {
     }
 
     /**
-     * 
+     * Remove um deck por Id.
      * @param id 
      */
-    deleteDeck(id: string): void {
+    deleteDeck(id: string) {
         this._decks.update((current) => current.filter((deck) => deck.id !== id));
     }
 
     /**
-     * 
+     * Adiciona um personagem ao deck, evita duplicar.
      * @param deckId 
      * @param caracterId 
      */
-    addMemberToDeck(deckId: string, caracterId: string): void {
+    addMemberToDeck(deckId: string, caracterId: string) {
         this._decks.update((current) =>
             current.map((deck) => {
                 if (deck.id !== deckId) return deck;
@@ -100,11 +99,11 @@ export class DeckStore {
     }
 
     /**
-     * 
+     * Remove personagem de um deck.
      * @param deckId 
      * @param caracterId 
      */
-    removeMemberFromDeck(deckId: string, caracterId: string): void {
+    removeMemberFromDeck(deckId: string, caracterId: string) {
         this._decks.update((current) =>
             current.map((deck) =>
                 deck.id === deckId ? {
@@ -117,7 +116,7 @@ export class DeckStore {
     }
 
     /**
-     * 
+     * Verifica se um personagem já pertence ao deck.
      * @param dackId 
      * @param characterId 
      * @returns 

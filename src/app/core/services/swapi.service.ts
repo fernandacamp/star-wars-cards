@@ -1,8 +1,13 @@
+import { ListResponse } from './../models/list-reponse.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ListResponse } from '../models/list-reponse.model';
+import { Observable, map } from 'rxjs';
 import { Person } from '../models/person.model';
+import { Films } from '../models/films.model';
+import { Starship } from '../models/starship.model';
+import { Planet } from '../models/planet.model';
+import { Species } from '../models/species.model';
+import { Vehicle } from '../models/vehicle.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +24,20 @@ export class SwapiService {
   getPeople(page = 1): Observable<ListResponse<Person>> {
     const params = new HttpParams().set('page', page.toString());
 
-    return this.http.get<ListResponse<Person>>(`${this.baseUrl}/people`, { params });
+    return this.http.get<any>(`${this.baseUrl}/people`, { params }).pipe(
+      map((raw): ListResponse<Person> => {
+        if (Array.isArray(raw)) {
+          return {
+            count: raw.length,
+            next: null,
+            previous: null,
+            results: raw as Person[],
+          };
+        }
+
+        return raw as ListResponse<Person>;
+      }),
+    );
   }
 
   /**
@@ -45,8 +63,8 @@ export class SwapiService {
    * @param id 
    * @returns 
    */
-  getFilmById(id: string): Observable<Person> {
-    return this.http.get<Person>(`${this.baseUrl}/films/${id}`);
+  getFilmById(id: string): Observable<Films> {
+    return this.http.get<Films>(`${this.baseUrl}/films/${id}`);
   }
 
   /**
@@ -54,8 +72,8 @@ export class SwapiService {
    * @param url 
    * @returns 
    */
-  getFilmByUrl(url: string): Observable<Person> {
-    return this.http.get<Person>(url);
+  getFilmByUrl(url: string): Observable<Films> {
+    return this.http.get<Films>(url);
   }
 
   /**
@@ -63,8 +81,8 @@ export class SwapiService {
    * @param id 
    * @returns 
    */
-  getStarshipById(id: string): Observable<Person> {
-    return this.http.get<Person>(`${this.baseUrl}/starships/${id}`);
+  getStarshipById(id: string): Observable<Starship> {
+    return this.http.get<Starship>(`${this.baseUrl}/starships/${id}`);
   }
 
   /**
@@ -72,8 +90,8 @@ export class SwapiService {
    * @param url 
    * @returns 
    */
-  getStarshipByUrl(url: string): Observable<Person> {
-    return this.http.get<Person>(url);
+  getStarshipByUrl(url: string): Observable<Starship> {
+    return this.http.get<Starship>(url);
   }
 
   /**
@@ -81,8 +99,8 @@ export class SwapiService {
    * @param id 
    * @returns 
    */
-  getPlanetById(id: string): Observable<Person> {
-    return this.http.get<Person>(`${this.baseUrl}/planets/${id}`);
+  getPlanetById(id: string): Observable<Planet> {
+    return this.http.get<Planet>(`${this.baseUrl}/planets/${id}`);
   }
 
   /**
@@ -90,8 +108,8 @@ export class SwapiService {
    * @param url 
    * @returns 
    */
-  getPlanetByUrl(url: string): Observable<Person> {
-    return this.http.get<Person>(url);
+  getPlanetByUrl(url: string): Observable<Planet> {
+    return this.http.get<Planet>(url);
   }
 
   /**
@@ -99,8 +117,8 @@ export class SwapiService {
    * @param id 
    * @returns 
    */
-  getSpeciesById(id: string): Observable<Person> {
-    return this.http.get<Person>(`${this.baseUrl}/species/${id}`);
+  getSpeciesById(id: string): Observable<Species> {
+    return this.http.get<Species>(`${this.baseUrl}/species/${id}`);
   }
 
   /**
@@ -108,8 +126,8 @@ export class SwapiService {
    * @param url 
    * @returns 
    */
-  getSpeciesByUrl(url: string): Observable<Person> {
-    return this.http.get<Person>(url);
+  getSpeciesByUrl(url: string): Observable<Species> {
+    return this.http.get<Species>(url);
   }
 
   /**
@@ -117,8 +135,8 @@ export class SwapiService {
    * @param id 
    * @returns 
    */
-  getVehicleById(id: string): Observable<Person> {
-    return this.http.get<Person>(`${this.baseUrl}/vehicles/${id}`);
+  getVehicleById(id: string): Observable<Vehicle> {
+    return this.http.get<Vehicle>(`${this.baseUrl}/vehicles/${id}`);
   }
 
   /**
@@ -126,8 +144,8 @@ export class SwapiService {
    * @param url 
    * @returns 
    */
-  getVehicleByUrl(url: string): Observable<Person> {
-    return this.http.get<Person>(url);
+  getVehicleByUrl(url: string): Observable<Vehicle> {
+    return this.http.get<Vehicle>(url);
   }
 
 }

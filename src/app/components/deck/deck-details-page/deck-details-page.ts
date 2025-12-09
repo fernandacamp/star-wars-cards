@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import { PeopleStore } from './../../../core/store/people.store';
+import { Component, inject, OnInit } from '@angular/core';
 import { CharacterCard } from "../../characters/character-card/character-card";
 import { Button } from "../../../shared/button/button";
+import { FavoriteStore } from '../../../core/store/favorite.store';
+import { CharacterCardModel } from '../../../core/models/character-card.model';
+import { Deck } from '../../../core/models/deck.model';
+import { DeckStore } from '../../../core/store/deck.store';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-deck-details-page',
@@ -9,72 +15,60 @@ import { Button } from "../../../shared/button/button";
   templateUrl: './deck-details-page.html',
   styleUrl: './deck-details-page.scss',
 })
-export class DeckDetailsPage {
+export class DeckDetailsPage implements OnInit {
 
-   deck: any = {
-    id: '1',
-    name: 'Ordem Jedi',
-    description: 'Deck focado em agilidade, sabres de luz e aliados da força.',
-    cardsCount: 4,
-    avgPower: 87,
-    favorite: true,
-    tags: ['Jedi', 'Light Side'],
-  };
+  favoriteStore = inject(FavoriteStore);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private deckStore = inject(DeckStore);
+  private peopleStore = inject(PeopleStore);
 
-   deckCharacters = [
-    {
-      id: '1',
-      name: 'Luke Skywalker',
-      type: 'Jedi',
-      hp: 130,
-      attack: 95,
-      defense: 80,
-      speed: 110,
-      height: '172',
-      mass: '77',
-      gender: 'male',
-      filmsCount: 3,
-    },
-    {
-      id: '2',
-      name: 'Obi-Wan Kenobi',
-      type: 'Jedi',
-      hp: 125,
-      attack: 90,
-      defense: 85,
-      speed: 100,
-      height: '182',
-      mass: '77',
-      gender: 'male',
-      filmsCount: 4,
-    },
-    {
-      id: '3',
-      name: 'Yoda',
-      type: 'Jedi',
-      hp: 140,
-      attack: 88,
-      defense: 95,
-      speed: 105,
-      height: '66',
-      mass: '17',
-      gender: 'male',
-      filmsCount: 5,
-    },
-    {
-      id: '4',
-      name: 'Ahsoka Tano',
-      type: 'Jedi',
-      hp: 120,
-      attack: 92,
-      defense: 78,
-      speed: 115,
-      height: '170',
-      mass: '55',
-      gender: 'female',
-      filmsCount: 2,
-    },
-  ];
+  characters: CharacterCardModel[] = [];
+  deck: Deck | null = null;
+  selectedDeckId: string | null = null;
+
+  deckFavorite: boolean = false;
+  tags: string[] = [];
+  get avgPower(): number | null {
+    if (!this.characters.length) return null;
+    
+    const totalPower = this.characters.reduce((acc, character) => {
+      return acc + character.attack + character.defense + character.speed;
+    }, 0);
+
+    const avgPower = totalPower / this.characters.length / 3;
+    return avgPower;
+  }
+
+  ngOnInit() {
+    const deckId = this.route.snapshot.paramMap.get('id');
+
+    if (!deckId) {
+      console.error('Deck ID não encontrado na rota.');
+      return;
+    }
+
+    const deck = this.deckStore.getDeckById(deckId);
+
+    if (!deck) {
+      console.error('Deck não encontrado.');
+      return;
+    }
+
+    this.deck = deck;
+    // deckFavorite
+    this.loadDeckCharacters();
+    this.buildTagsFromCharacter();
+
+  }
+
+  onAddToDeck(characterId: string) {
+    console.log('Adicionar ao deck atual:', characterId);
+  }
+
+  goToCharacterDetails(characterId: string) {
+    console.log('Ir para detalhes do personagem:', characterId);
+  }
 
   navigateBack(): void {
     console.log('Navega de volta para lista de decks');
@@ -85,11 +79,32 @@ export class DeckDetailsPage {
   }
 
   deleteDeck(): void {
-    console.log('Deleta o deck atual');
+    if(!this.deck) return;
+    this.deckStore.deleteDeck(this.deck.id);
+    this.navigateBack();
   }
 
   favoriteDeck(): void {
     console.log('Favorita o deck atual');
+  }
+
+  private loadDeckCharacters(): void {
+    if (!this.deck) return;
+
+    const allCharacters = this.peopleStore.characters();
+
+    this.characters = allCharacters.filter(character =>
+      this.deck?.memberIds.includes(character.id)
+    );
+  }
+
+  private buildTagsFromCharacter(): void {
+    const set = new Set<string>();
+
+    this.characters.forEach(character => {
+      if (character.type) set.add(character.type);
+    });
+    this.tags = Array.from(set);
   }
 
 

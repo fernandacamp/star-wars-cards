@@ -9,10 +9,11 @@
     background: var(--sw-gradient-primary);
     box-shadow: 0 10px 25px var(--sw-black-transparent-65);
     color: var(--sw-light);
-    font-family: var(--font-primary);
+    font-family: var(--font-mono);
     font-size: var(--font-size-base);
     overflow: hidden;
-    height: auto;
+    min-height: 410px !important;
+    min-width: 280px !important;
 }
 
 .sw-card-jedi {
@@ -59,7 +60,7 @@
 .sw-card-subtitle-row {
     display: flex;
     justify-content: space-between;
-    font-size: var(font-size-small);
+    font-size: var(--font-size-small);
     opacity: 0.9;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -79,7 +80,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     margin-top: 5px;
 }
 
@@ -124,7 +124,7 @@
 
 .sw-card-status-value {
     font-size: var(--font-size-base);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     margin: 0;
 }
 
@@ -133,10 +133,10 @@
     flex-direction: column;
     gap: 5px;
     font-size: var(--font-size-base);
-    line-height: 2px;
+    line-height: 1.2;
 }
 
-.sw-card__info-line {
+.sw-card-info-line {
     margin: 0;
     display: flex;
     flex-wrap: wrap;
@@ -150,19 +150,21 @@
 .sw-card-actions {
     margin-top: 8px;
     display: flex;
-    justify-content: stretch;
+    align-items: stretch;
+    flex-wrap: wrap;
     gap: 5px;
 }
 
-app-button {
+.sw-card-actions app-button {
+    font-family: var(--font-primary);
     flex: 1;
+    display: block;
 }
 
 .sw-card-favorite {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     width: 32px;
     height: 32px;
 

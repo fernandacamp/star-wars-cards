@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CharacterCard } from "../../characters/character-card/character-card";
 import { Button } from "../../../shared/button/button";
 import { Pagination } from "../../../shared/pagination/pagination";
 import { DeckCard } from "../deck-card/deck-card";
+import { Deck } from '../../../core/models/deck.model';
+import { DeckStore } from '../../../core/store/deck.store';
+import { SnackbarService } from '../../../core/services/snackbar.service';
+import { SnackbarType } from '../../../core/enums/snackbarType.enum';
 
 @Component({
   selector: 'app-deck-list-page',
@@ -13,70 +17,22 @@ import { DeckCard } from "../deck-card/deck-card";
 })
 export class DeckListPage {
 
-  totalItems: number = 0;
+  private deckStore = inject(DeckStore)
+  snackbar = inject(SnackbarService);
   pageSize: number = 10;
   currentPage: number = 1;
 
   isLoading: boolean = false;
 
-  decks = [
-    {
-      id: '1',
-      name: 'Ordem Jedi',
-      description: 'Deck focado em agilidade, sabres de luz e aliados da força.',
-      cardsCount: 12,
-      avgPower: 87,
-      favorite: true,
-      tags: ['Jedi', 'Light Side'],
-    },
-    {
-      id: '2',
-      name: 'Império Sith',
-      description: 'Poder bruto, força sombria e ataques devastadores.',
-      cardsCount: 10,
-      avgPower: 95,
-      favorite: false,
-      tags: ['Sith', 'Dark Side'],
-    },
-    {
-      id: '3',
-      name: 'Tecnologia Droid',
-      description: 'Unidades droides otimizadas para suporte e controle.',
-      cardsCount: 14,
-      avgPower: 74,
-      favorite: false,
-      tags: ['Droid'],
-    },
-    {
-      id: '4',
-      name: 'Aliança Rebelde',
-      description: 'Estratégias táticas e personagens de apoio.',
-      cardsCount: 9,
-      avgPower: 68,
-      favorite: true,
-      tags: ['Civilian', 'Rebels'],
-    },
-    {
-      id: '5',
-      name: 'Caçadores de Recompensa',
-      description: 'Ataques rápidos e golpes surpresa.',
-      cardsCount: 11,
-      avgPower: 82,
-      favorite: false,
-      tags: ['Bounty Hunter'],
-    },
-    {
-      id: '6',
-      name: 'Conselho Jedi',
-      description: 'Os mestres mais poderosos da galáxia.',
-      cardsCount: 8,
-      avgPower: 92,
-      favorite: false,
-      tags: ['Jedi'],
-    },
-  ];
+  get decks(): Deck[] {
+    return this.deckStore.decks();
+  }
 
-  get pagedDecks() {
+  get totalItems(): number {
+    return this.deckStore.decksCount();
+  }
+
+  get pagedDecks(): Deck[] {
     const start = (this.currentPage - 1) * this.pageSize;
     const end = this.currentPage * this.pageSize;
     return this.decks.slice(start, end);
@@ -84,7 +40,29 @@ export class DeckListPage {
 
   pageChange(newPage: number): void {
     this.currentPage = newPage;
-    //chamar a funcao para carregar os dados da nova pagina
+  }
+
+  createDeck() {
+    try {
+      const deck = this.deckStore.createDeck('Novo Deck');
+
+      if (!deck) {
+        throw new Error('Erro inesperado ao criar o deck.');
+      }
+
+      this.snackbar.show(
+        `Deck "${deck.name}" criado com sucesso!`,
+        SnackbarType.Success
+      );
+
+      this.currentPage = Math.ceil(this.totalItems / this.pageSize);
+
+    } catch (err) {
+      this.snackbar.show(
+        'Não foi possível criar o deck.',
+        SnackbarType.Error
+      );
+    }
   }
 
   viewDeck() {
@@ -93,6 +71,7 @@ export class DeckListPage {
   editDeck() {
     console.log('Editar deck');
   }
+
   deleteDeck() {
     console.log('Deletar deck');
   }
@@ -101,7 +80,4 @@ export class DeckListPage {
     console.log('Favoritar / desfavoritar deck');
   }
 
-  createDeck() {
-    console.log('Criar novo deck');
-  }
 }

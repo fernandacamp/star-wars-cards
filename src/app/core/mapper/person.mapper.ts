@@ -1,8 +1,8 @@
-import { CharacterCard } from "../models/character-card.model";
+import { CharacterCardModel } from "../models/character-card.model";
 import { Person } from "../models/person.model";
 import { generateAttack, generateDefense, generateHp, generateSpeed, inferCharacterType } from "./stats/stats-shared";
 
-export function mapPersonToCard(person: Person): CharacterCard {
+export function mapPersonToCard(person: Person): CharacterCardModel {
     const id = extractIdFromUrl(person.url);
 
     const height = parseInt(person.height, 10) || 0;

@@ -1,6 +1,5 @@
 import { CharacterType } from "../enums/character-type.enum";
 
-
 export interface CharacterDetail{
   id: string;
   name: string;
